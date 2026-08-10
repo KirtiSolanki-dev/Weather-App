@@ -65,7 +65,7 @@ body::before {
 =================================== */
 
 .container {
-     min-height: 0px;
+     min-height: 0;
      height: auto;
     width: min(90%, 420px);
 
@@ -307,7 +307,20 @@ body::before {
 =================================== */
 
 @media (max-width: 480px) {
+
+    body {
+        padding: 1rem;
+    }
+
+    .container {
+        width: 100%;
+        padding: 1.2rem;
+        border-radius: 2rem;
+        gap: 1rem;
+    }
+
     .cards {
         flex-direction: column;
+        gap: 0.7rem;
     }
 }
