@@ -127,6 +127,7 @@ body::before {
     outline: none;
 
     background: rgba(255, 255, 255, 0.9);
+    color: rgb(31, 29, 29);
 
     font-size: 1rem;
     cursor: text;
