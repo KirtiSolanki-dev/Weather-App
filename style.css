@@ -65,7 +65,7 @@ body::before {
 =================================== */
 
 .container {
-     min-height: 420px;
+     min-height: 0px;
      height: auto;
     width: min(90%, 420px);
 
