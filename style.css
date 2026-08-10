@@ -114,12 +114,13 @@ body::before {
 .search-container {
     display: flex;
     gap: 0.5rem;
-
+    width: 100%;
     margin-bottom: 0.5rem;
 }
 
 #city-input {
     flex: 1;
+    min-width: 0;
 
     padding: 0.8rem 1rem;
 
