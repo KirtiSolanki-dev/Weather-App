@@ -65,7 +65,7 @@ body::before {
 =================================== */
 
 .container {
-    height: min(90%, 420px);
+    height: min(80%, 420px);
     width: min(90%, 420px);
 
     display: flex;
