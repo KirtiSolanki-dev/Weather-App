@@ -99,6 +99,22 @@ async function weather(city) {
 
     console.log(iconUrl);
 
+    const weatherCondition = data.weather[0].main;
+
+    const background = {
+        Clouds: "assests/cloudy.webp.webp",
+        Haze: "assests/haze.png.webp",
+        Mist: "assests/mist.png.webp",
+        Rain: "assests/rain.png.webp",
+        Snow: "assests/snow.webp.webp",
+        Clear: "assests/sunny.webp.webp",
+        Thunder: "assests/thunder.webp.webp",
+        default: "assests/default.png.webp"
+    }
+
+    document.body.style.backgroundImage = `url('${background[weatherCondition] || "assests/default.png.webp"}')`;
+    
+
 }
 
 
@@ -106,4 +122,6 @@ async function weather(city) {
 // DEFAULT WEATHER ON PAGE LOAD
 // ========================================
 
- weather("Delhi");
+weather("Delhi");
+
+

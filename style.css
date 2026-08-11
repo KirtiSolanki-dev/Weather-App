@@ -22,7 +22,7 @@
 =================================== */
 
 body {
-    
+
     min-height: 100vh;
 
     display: flex;
@@ -38,7 +38,7 @@ body {
             #6c5ce7
         );
 
-    background-image: url(assests/snow.webp.webp);
+   
 
     background-size: cover;
     background-position: center;
