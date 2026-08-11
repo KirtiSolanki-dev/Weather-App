@@ -28,6 +28,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 2rem;
 
     font-family: "Poppins", sans-serif;
 
@@ -273,12 +274,10 @@ body::before {
 /* ===================================
    LOADING & ERROR STATES
 =================================== */
-
 .loading,
-/* .error-message {
+.error-message{
     display: none;
-} */
-
+}
 .loading {
     color: white;
     font-size: 0.9rem;

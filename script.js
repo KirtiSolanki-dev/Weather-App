@@ -28,10 +28,12 @@ searchBtn.addEventListener("click", () => {
     // Check if user entered a city
     if (city === "") {
         errorMessage.textContent = "Please enter your city name";
+         errorMessage.style.display = "block";
         return;
     }
 
     errorMessage.textContent = "";
+    errorMessage.style.display = "none";
 
     // Fetch weather data
     weather(city);
@@ -86,10 +88,12 @@ async function weather(city) {
 
         if (data.cod == 404) {
             errorMessage.textContent = "City not found";
+             errorMessage.style.display = "block";
             return;
         }
 
         errorMessage.textContent = "";
+         errorMessage.style.display = "none";
 
         // ========================================
         // UPDATE WEATHER INFORMATION
