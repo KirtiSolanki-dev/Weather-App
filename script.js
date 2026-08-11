@@ -118,7 +118,7 @@ async function weather(city) {
         };
 
         document.body.style.backgroundImage =
-            `url('${backgrounds[weatherCondition] || "assets/default.webp"}')`;
+            `url('${backgrounds[weatherCondition] || "assets/default.png.webp"}')`;
 
         console.log(weatherCondition);
 
