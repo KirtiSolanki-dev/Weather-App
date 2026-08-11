@@ -37,6 +37,25 @@ searchBtn.addEventListener("click", () => {
     weather(city);
 });
 
+
+// ========================================
+// ENTER KEY SUPPORT
+// Allows user to search weather
+// by pressing the Enter key
+// ========================================
+
+cityInput.addEventListener("keydown", (event) => {
+
+    // Check if Enter key was pressed
+    if (event.key === "Enter") {
+
+        // Trigger Search Button click event
+        searchBtn.click();
+    }
+
+});
+
+
 // ========================================
 // FETCH WEATHER DATA FROM API
 // ========================================
