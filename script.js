@@ -14,6 +14,8 @@ const windSpeed = document.getElementById("wind-speed");
 
 const weatherIcon = document.getElementById("weather-icon");
 
+const errorMessage = document.getElementById("error-message");
+const loading = document.getElementById("loading");
 
 // ========================================
 // SEARCH BUTTON EVENT
@@ -25,15 +27,15 @@ searchBtn.addEventListener("click", () => {
 
     // Check if user entered a city
     if (city === "") {
-        alert("Please enter your city name");
+        errorMessage.textContent = "Please enter your city name";
         return;
     }
 
+    errorMessage.textContent = "";
+
     // Fetch weather data
     weather(city);
-
 });
-
 
 // ========================================
 // FETCH WEATHER DATA FROM API
@@ -41,87 +43,101 @@ searchBtn.addEventListener("click", () => {
 
 async function weather(city) {
 
-    // OpenWeather API Key
-    const apiKey = "f2b4553add4e83993de3b0c58d60e077";
+    loading.textContent = "Loading...";
 
-    // API URL
-    const url =
-        `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+    try {
 
-    // Send request to API
-    const response = await fetch(url);
+        // ========================================
+        // OPENWEATHER API
+        // ========================================
 
-    // Convert response into JavaScript object
-    const data = await response.json();
+        const apiKey = "f2b4553add4e83993de3b0c58d60e077";
 
-    console.log(data);
+        const url =
+            `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
 
+        const response = await fetch(url);
+        const data = await response.json();
 
-    // ========================================
-    // ERROR HANDLING
-    // ========================================
+        console.log(data);
 
-    if (data.cod === "404") {
-        alert("City not found");
-        return;
+        // ========================================
+        // ERROR HANDLING
+        // ========================================
+
+        if (data.cod == 404) {
+            errorMessage.textContent = "City not found";
+            return;
+        }
+
+        errorMessage.textContent = "";
+
+        // ========================================
+        // UPDATE WEATHER INFORMATION
+        // ========================================
+
+        cityName.textContent = data.name;
+
+        temprature.textContent =
+            `${Math.round(data.main.temp)}°C`;
+
+        description.textContent =
+            data.weather[0].description;
+
+        humidity.textContent =
+            `${data.main.humidity}%`;
+
+        windSpeed.textContent =
+            `${Math.round(data.wind.speed * 3.6)} km/h`;
+
+        // ========================================
+        // UPDATE WEATHER ICON
+        // ========================================
+
+        const iconCode = data.weather[0].icon;
+
+        const iconUrl =
+            `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
+
+        weatherIcon.src = iconUrl;
+
+        // ========================================
+        // UPDATE BACKGROUND IMAGE
+        // ========================================
+
+        const weatherCondition = data.weather[0].main;
+
+        const backgrounds = {
+            Clouds: "assets/cloudy.webp.webp",
+            Haze: "assets/haze.png.webp",
+            Mist: "assets/mist.png.webp",
+            Rain: "assets/rain.png.webp",
+            Snow: "assets/snow.webp.webp",
+            Clear: "assets/sunny.webp.webp",
+            Thunderstorm: "assets/thunder.webp.webp"
+        };
+
+        document.body.style.backgroundImage =
+            `url('${backgrounds[weatherCondition] || "assets/default.webp"}')`;
+
+        console.log(weatherCondition);
+
+    } catch (error) {
+
+        errorMessage.textContent =
+            "Something went wrong. Please try again.";
+
+        console.error(error);
+
+    } finally {
+
+        loading.textContent = "";
+
     }
-
-
-    // ========================================
-    // UPDATE WEATHER INFORMATION
-    // ========================================
-
-    cityName.textContent = data.name;
-
-    temprature.textContent =
-        `${Math.round(data.main.temp)}°C`;
-
-    description.textContent =
-        data.weather[0].description;
-
-    humidity.textContent =
-        `${data.main.humidity}%`;
-
-    windSpeed.textContent =
-        `${data.wind.speed} km/h`;
-
-
-    // ========================================
-    // UPDATE WEATHER ICON
-    // ========================================
-
-    const iconCode = data.weather[0].icon;
-
-    const iconUrl =
-        `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
-
-    weatherIcon.src = iconUrl;
-
-    console.log(iconUrl);
-
-    const weatherCondition = data.weather[0].main;
-
-    const background = {
-        Clouds: "assests/cloudy.webp.webp",
-        Haze: "assests/haze.png.webp",
-        Mist: "assests/mist.png.webp",
-        Rain: "assests/rain.png.webp",
-        Snow: "assests/snow.webp.webp",
-        Clear: "assests/sunny.webp.webp",
-        Thunder: "assests/thunder.webp.webp",
-        default: "assests/default.png.webp"
-    }
-
-    document.body.style.backgroundImage = `url('${background[weatherCondition] || "assests/default.png.webp"}')`;
-    
-
 }
-
 
 // ========================================
 // DEFAULT WEATHER ON PAGE LOAD
 // ========================================
 
 weather("Delhi");
-
-
